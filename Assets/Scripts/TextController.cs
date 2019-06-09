@@ -8,9 +8,6 @@ namespace ShapesAndColors{
     public class TextController : MonoBehaviour
     {
         public Font font;
-        private Color GetshapesTextColor{ get; set; }
-        private Color GetampTextColor{ get; set; }
-        private Color GetcolorsTextColor{ get; set; }
         
         void Awake()
         {
