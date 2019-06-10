@@ -19,8 +19,10 @@ namespace ShapesAndColors{
         Button stickersButton;
         public GameObject mainMenuButtonGO;
         public Button mainMenuButton;
+        public Sprite mainMenuButtonIcon;
         public GameObject pauseScreenButtonGO;
         public Button pauseScreenButton;
+        public Sprite pauseScreenButtonIcon;
         
         public GameObject pauseScreenGO;
         void Awake()
@@ -34,6 +36,7 @@ namespace ShapesAndColors{
             GameObject canvasGO = new GameObject();
             
             canvasGO.name = "MainCanvas";
+            canvasGO.layer = 5;
             canvasGO.AddComponent<Canvas>();
             canvasGO.AddComponent<CanvasScaler>();
             canvasGO.AddComponent<GraphicRaycaster>();
@@ -44,6 +47,10 @@ namespace ShapesAndColors{
             Canvas canvas;
             canvas = canvasGO.GetComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            
+            CanvasScaler canvasScaler = canvasGO.GetComponent<CanvasScaler>();
+            canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            canvasScaler.referenceResolution = new Vector2(1920, 1080);
 
             //Create the 'Welcome to' text
             GameObject welcomeTextGO = new GameObject();
@@ -231,45 +238,17 @@ namespace ShapesAndColors{
             mainMenuButtonGO.AddComponent<Image>();
             mainMenuButtonGO.AddComponent<Button>();
 
+            mainMenuButton = mainMenuButtonGO.GetComponent<Button>();
             mainMenuButtonGO.SetActive(false);
 
-            mainMenuButton = mainMenuButtonGO.GetComponent<Button>();
+            Image mainMenuButtonImage = mainMenuButtonGO.GetComponent<Image>();
+            mainMenuButtonImage.sprite = mainMenuButtonIcon;
 
             RectTransform mainMenuButtonRectTransform;
             mainMenuButtonRectTransform = mainMenuButtonGO.GetComponent<RectTransform>();
-            mainMenuButtonRectTransform.localPosition = new Vector3(0, -170, 0);
-            mainMenuButtonRectTransform.sizeDelta = new Vector2(450, 100);
-
-            ColorBlock mainMenuButtonColors;
-            mainMenuButtonColors = mainMenuButtonGO.GetComponent<Button>().colors;
-            mainMenuButtonColors.normalColor = new Color(0, 0, 255);
-            mainMenuButtonColors.highlightedColor = new Color(0, 255, 0);
-            mainMenuButtonColors.pressedColor = new Color(255, 0, 0);
-
-            mainMenuButton.targetGraphic = mainMenuButtonGO.GetComponent<Image>();
-            mainMenuButton.colors = mainMenuButtonColors;
-
-            //Create the 'mainMenu!' text in the 'mainMenu!' button
-            GameObject mainMenuButtonTextGO = new GameObject();
-            mainMenuButtonTextGO.name = "MainMenuButtonText";
-            mainMenuButtonTextGO.transform.parent = mainMenuButtonGO.transform;
-            mainMenuButtonTextGO.AddComponent<RectTransform>();
-            mainMenuButtonTextGO.AddComponent<Text>();
-
-            RectTransform mainMenuButtonTextRectTransform;
-            mainMenuButtonTextRectTransform = mainMenuButtonTextGO.GetComponent<RectTransform>();
-            mainMenuButtonTextRectTransform.anchorMin = new Vector2(0, 0);
-            mainMenuButtonTextRectTransform.anchorMax = new Vector2(1, 1);
-            mainMenuButtonTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
-            mainMenuButtonTextRectTransform.anchoredPosition = new Vector2(0, 0);
-
-            Text mainMenuButtonText;
-            mainMenuButtonText = mainMenuButtonTextGO.GetComponent<Text>();
-            mainMenuButtonText.text = "Main Menu";
-            mainMenuButtonText.font = welcomeFont;
-            mainMenuButtonText.fontSize = welcomeFontSize;
-            mainMenuButtonText.alignment = TextAnchor.MiddleCenter;
-            mainMenuButtonText.color = new Color(0, 0, 0);
+            mainMenuButtonRectTransform.anchorMin = new Vector2(0,1);
+            mainMenuButtonRectTransform.anchorMax = new Vector2(0,1);
+            mainMenuButtonRectTransform.anchoredPosition = new Vector2(60, -60);
 
             //Create the 'PauseScreen' button
             pauseScreenButtonGO = new GameObject();
@@ -278,53 +257,19 @@ namespace ShapesAndColors{
             pauseScreenButtonGO.AddComponent<RectTransform>();
             pauseScreenButtonGO.AddComponent<Image>();
             pauseScreenButtonGO.AddComponent<Button>();
-
+            
+            pauseScreenButton = pauseScreenButtonGO.GetComponent<Button>();
             pauseScreenButtonGO.SetActive(false);
 
-            //pauseScreenObjects.Add(pauseScreenButtonGO);
-            pauseScreenButton = pauseScreenButtonGO.GetComponent<Button>();
+            Image pauseScreenButtonImage = pauseScreenButtonGO.GetComponent<Image>();
+            pauseScreenButtonImage.sprite = pauseScreenButtonIcon;
+            
 
             RectTransform pauseScreenButtonRectTransform;
             pauseScreenButtonRectTransform = pauseScreenButtonGO.GetComponent<RectTransform>();
-            float pauseOffsetMinX = pauseScreenButtonRectTransform.offsetMin.x;
-            pauseOffsetMinX = 1673.32f;
-            float pauseOffsetMaxX = pauseScreenButtonRectTransform.offsetMax.x;
-            pauseOffsetMaxX = 0;
-            float pauseOffsetMinY = pauseScreenButtonRectTransform.offsetMin.y;
-            pauseOffsetMinY  = 948f;
-            float pauseOffsetMaxY = pauseScreenButtonRectTransform.offsetMax.y;
-            pauseOffsetMaxY  = 0;
-
-            ColorBlock pauseScreenButtonColors;
-            pauseScreenButtonColors = pauseScreenButtonGO.GetComponent<Button>().colors;
-            pauseScreenButtonColors.normalColor = new Color(0, 0, 255);
-            pauseScreenButtonColors.highlightedColor = new Color(0, 255, 0);
-            pauseScreenButtonColors.pressedColor = new Color(255, 0, 0);
-
-            pauseScreenButton.targetGraphic = pauseScreenButtonGO.GetComponent<Image>();
-            pauseScreenButton.colors = pauseScreenButtonColors;
-
-            //Create the 'pauseScreen!' text in the 'pauseScreen!' button
-            GameObject pauseScreenButtonTextGO = new GameObject();
-            pauseScreenButtonTextGO.name = "PauseScreenButtonText";
-            pauseScreenButtonTextGO.transform.parent = pauseScreenButtonGO.transform;
-            pauseScreenButtonTextGO.AddComponent<RectTransform>();
-            pauseScreenButtonTextGO.AddComponent<Text>();
-
-            RectTransform pauseScreenButtonTextRectTransform;
-            pauseScreenButtonTextRectTransform = pauseScreenButtonTextGO.GetComponent<RectTransform>();
-            pauseScreenButtonTextRectTransform.anchorMin = new Vector2(0, 0);
-            pauseScreenButtonTextRectTransform.anchorMax = new Vector2(1, 1);
-            pauseScreenButtonTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
-            pauseScreenButtonTextRectTransform.anchoredPosition = new Vector2(0, 0);
-
-            Text pauseScreenButtonText;
-            pauseScreenButtonText = pauseScreenButtonTextGO.GetComponent<Text>();
-            pauseScreenButtonText.text = "||";
-            pauseScreenButtonText.font = welcomeFont;
-            pauseScreenButtonText.fontSize = welcomeFontSize;
-            pauseScreenButtonText.alignment = TextAnchor.MiddleCenter;
-            pauseScreenButtonText.color = new Color(0, 0, 0);
+            pauseScreenButtonRectTransform.anchorMin = new Vector2(1,1);
+            pauseScreenButtonRectTransform.anchorMax = new Vector2(1,1);
+            pauseScreenButtonRectTransform.anchoredPosition = new Vector2(-60,-60);
 
             //Create text boxes for colors and shapes
             for(int i = 0; i < 3; i++)
