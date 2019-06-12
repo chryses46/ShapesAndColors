@@ -318,27 +318,21 @@ namespace ShapesAndColors{
 
         }
 
-        
-
         void StartGame()
         {
-            Debug.Log("Game Started!");
             gameController.PlayGame();
         }
         void GoToStickers()
         {
-            Debug.Log("Moving to sticker book.");
             gameController.StickerBook();
         }
         void MainMenu()
         {
-            Debug.Log("Moving to main menu.");
             gameController.MainMenu();
         }
-        private void Pause()
+        void Pause()
         {
-            Debug.Log("Game is paused.");
-            gameController.Pause(GameController._GameState.Paused);
+            gameController.Pause();
         }
     }
 }

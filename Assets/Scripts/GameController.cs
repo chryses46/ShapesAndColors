@@ -40,6 +40,9 @@ namespace ShapesAndColors{
 
             }else if(gameState == _GameState.MainMenu)
             {
+
+                textController.mainMenuButtonGO.SetActive(false);
+
                 for(int i = 0; i < textController.mainMenuObjects.Count; i++)
                 {
                     GameObject menuObject = textController.mainMenuObjects[i];
@@ -47,6 +50,8 @@ namespace ShapesAndColors{
                 }
 
             }else{
+
+                textController.mainMenuButtonGO.SetActive(true);
                 
                 for(int i = 0; i < textController.mainMenuObjects.Count; i++)
                 {
@@ -61,7 +66,6 @@ namespace ShapesAndColors{
         {
             if(gameState == _GameState.Play)
             {
-                textController.mainMenuButtonGO.SetActive(true);
                 textController.pauseScreenButtonGO.SetActive(true);
 
                 for(int i = 0; i < textController.playObjects.Count; i++)
@@ -69,13 +73,22 @@ namespace ShapesAndColors{
                     GameObject playObject = textController.playObjects[i];
                     playObject.SetActive(true);
                 }
-            }else{
+            }else if(gameState == _GameState.MainMenu)
+            {
+                textController.pauseScreenButtonGO.SetActive(false);
+
                 for(int i = 0; i < textController.playObjects.Count; i++)
                 {
                     GameObject playObject = textController.playObjects[i];
                     playObject.SetActive(false);
                 }
+            }else{
 
+                for(int i = 0; i < textController.playObjects.Count; i++)
+                {
+                    GameObject playObject = textController.playObjects[i];
+                    playObject.SetActive(false);
+                }
             }
         }
 
@@ -83,7 +96,6 @@ namespace ShapesAndColors{
         {
             Debug.Log("GameState now in Play.");
             gameState = _GameState.Play;
-            Debug.Log(gameState);
 
             EnableDiableMainMenuObjects(gameState);
             EnableDisablePlayObjects(gameState);
@@ -94,7 +106,6 @@ namespace ShapesAndColors{
         {
             Debug.Log("GameState now in Stickers.");
             gameState = _GameState.Stickers;
-            Debug.Log(gameState);
 
             EnableDiableMainMenuObjects(gameState);
             EnableDisablePlayObjects(gameState);
@@ -104,20 +115,24 @@ namespace ShapesAndColors{
         {
             Debug.Log("GameState is now MainMenu.");
             gameState = _GameState.MainMenu;
-            Debug.Log(gameState);
 
             EnableDisablePlayObjects(gameState);
             EnableDiableMainMenuObjects(gameState);
 
         }
 
-        public void Pause(_GameState gamestate)
+        public void Pause()
         {
             if(gameState == _GameState.Paused)
             {
+                Debug.Log("GameState is now Play.");
+                gameState = _GameState.Play;
+
+                EnableDisablePlayObjects(gameState);
+                textController.pauseScreenGO.SetActive(false);
+            }else{
                 Debug.Log("GameState is now Paused.");
                 gameState = _GameState.Paused;
-                Debug.Log(gameState);
 
                 EnableDisablePlayObjects(gameState);
                 textController.pauseScreenGO.SetActive(true);
