@@ -70,8 +70,8 @@ namespace ShapesAndColors{
 
                 for(int i = 0; i < textController.playObjects.Count; i++)
                 {
-                    GameObject playObject = textController.playObjects[i];
-                    playObject.SetActive(true);
+                    TextController.PlayTitleBox playObject = textController.playObjects[i];
+                    playObject.TitleBoxEnabled(true);
                 }
             }else if(gameState == _GameState.MainMenu)
             {
@@ -79,15 +79,15 @@ namespace ShapesAndColors{
 
                 for(int i = 0; i < textController.playObjects.Count; i++)
                 {
-                    GameObject playObject = textController.playObjects[i];
-                    playObject.SetActive(false);
+                    TextController.PlayTitleBox playObject = textController.playObjects[i];
+                    playObject.TitleBoxEnabled(false);
                 }
             }else{
 
                 for(int i = 0; i < textController.playObjects.Count; i++)
                 {
-                    GameObject playObject = textController.playObjects[i];
-                    playObject.SetActive(false);
+                    TextController.PlayTitleBox playObject = textController.playObjects[i];
+                    playObject.TitleBoxEnabled(false);
                 }
             }
         }

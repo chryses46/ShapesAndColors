@@ -14,7 +14,7 @@ namespace ShapesAndColors{
         
         public Transform mainCanvas;
         public List<GameObject> mainMenuObjects = new List<GameObject>();
-        public List<GameObject> playObjects = new List<GameObject>();
+        public List<PlayTitleBox> playObjects = new List<PlayTitleBox>();
         Button startButton;
         Button stickersButton;
         public GameObject mainMenuButtonGO;
@@ -271,19 +271,6 @@ namespace ShapesAndColors{
             pauseScreenButtonRectTransform.anchorMax = new Vector2(1,1);
             pauseScreenButtonRectTransform.anchoredPosition = new Vector2(-60,-60);
 
-            //Create text boxes for colors and shapes
-            for(int i = 0; i < 3; i++)
-            {
-                GameObject textHolderGO = new GameObject();
-                textHolderGO.name = "TextHolder_" + i;
-                textHolderGO.transform.parent = canvasGO.transform;
-                textHolderGO.AddComponent<RectTransform>();
-                textHolderGO.AddComponent<Text>();
-                textHolderGO.SetActive(false);
-
-                playObjects.Add(textHolderGO);
-            }
-
             pauseScreenGO = new GameObject();
             pauseScreenGO.name = "PauseScreen";
             pauseScreenGO.transform.parent = canvasGO.transform;
@@ -306,6 +293,26 @@ namespace ShapesAndColors{
 
 
             Debug.Log("Welcome to Shapes & Colors!");
+
+            //for(int i = 0; i <4; i++)
+            //{
+                PlayTitleBox pt = new PlayTitleBox();
+                pt.goName = "PlayTitleBox_0";
+                pt.goParent = canvasGO.transform;
+                pt.goTextText = "PLACEHOLDER TEXT";
+                pt.goTextFont = welcomeFont;
+                pt.goTextFontSize = welcomeFontSize + 5;
+                pt.goTextColor = Color.red;
+                pt.goTextAnchor = TextAnchor.MiddleCenter;
+                pt.goRectLocalPos = new Vector3(0, 300, 0);
+                pt.goRectSizeDelta = new Vector2(600, 200);
+                pt.PlayTitleBoxCreate();
+                pt.TitleBoxEnabled(false);
+                playObjects.Add(pt);
+                
+
+            //}
+            
         }
 
         
@@ -333,6 +340,56 @@ namespace ShapesAndColors{
         void Pause()
         {
             gameController.Pause();
+        }
+
+        public class PlayTitleBox
+        {
+
+            public string goName;
+            public Transform goParent;
+            public string goTextText;
+            public Font goTextFont;
+            public int goTextFontSize;
+            public Color goTextColor;
+            public TextAnchor goTextAnchor;
+            public Vector3 goRectLocalPos;
+            public Vector2 goRectSizeDelta;
+
+            GameObject go = new GameObject();
+
+            //Constructor calls the PlayTitleBoxCreate method.
+            // public PlayTitleBox()
+            // {
+            //     PlayTitleBoxCreate();
+            // }
+            
+            //Creates the TitleBox for play mode.
+            public GameObject PlayTitleBoxCreate(){
+                go.name = goName;
+                go.transform.parent = goParent;
+                go.AddComponent<Text>();
+                go.AddComponent<RectTransform>();
+
+                Text goText = go.GetComponent<Text>();
+                goText.text = goTextText;
+                goText.font = goTextFont;
+                goText.fontSize = goTextFontSize;
+                goText.color = goTextColor;
+                goText.alignment = goTextAnchor;
+
+                RectTransform goRectTransform = go.GetComponent<RectTransform>();
+                goRectTransform.localPosition = goRectLocalPos;
+                goRectTransform.sizeDelta = goRectSizeDelta;
+
+                return go;
+            }
+
+            public void TitleBoxEnabled(bool status)
+            {
+                go.SetActive(status);
+            }
+
+
         }
     }
 }
